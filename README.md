@@ -5,7 +5,7 @@ Booksy is a digital reading journal designed to help book lovers track their rea
 
 - #### Features
 
-  - **Log in / Register **: Users can register and log in only with username and password.
+  - **Log in / Register :** Users can register and log in only with username and password.
   - **Book Search:**: User can search books via the Google Books API and see the details of the books such as title, author, description...etc.
   - **Default shelves**: User have access to their own personal library that includes 3 default bookshelves: *Currently Reading, Want To Read and Read*.
     - **Bookshelf**: user can add/move/remove book from any bookshelf.

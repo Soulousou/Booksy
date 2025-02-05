@@ -18,9 +18,9 @@ Booksy is a digital reading journal designed to help book lovers track their rea
 
   **Backend**: nodeJS, express
 
-  **Database**: mongoDB  (managed using Mongoose)
+  **Database**: mongoDB (managed using Mongoose)
 
-  **Authentication**: JSON Web Tokens (JWT): JSON Web Tokens (JWT)
+  **Authentication**: JSON Web Tokens (JWT)
 
   **API**: Google books API 
 

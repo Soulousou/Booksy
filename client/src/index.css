@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.navbar-link {
+  transition: color 0.3s ease;
+}
+
+.navbar-link:hover {
+  color: hsla(21, 73%, 33%, 0.702);
+}
+
+/* Container for the cat image and title */
+.cat-image {
+    transition: transform 300ms ease-in-out;
+    border-radius: 50%; /* Make it round */
+    display: block;
+    position: relative; /* Ensures title can be positioned relative to it */
+  }
+  
+  /* Booksy Title Styling */
+  .booksy-title {
+    position: absolute;
+    top: 50%;
+    left: 100%; 
+    transform: translateY(-50%);
+    font-size: 1.13rem ;
+    line-height: 1.8rem;
+    font-weight: 800;
+    color: #f0fdf4;
+    opacity: 0; 
+    visibility: hidden; /* Initially hidden */
+    margin-left: 15%; /* Add space between the image and title */
+    transition: opacity 300ms ease-in-out, visibility 0ms linear 300ms;
+  }
+
+  .booksy-title:hover{
+    color: hsla(21, 73%, 33%, 0.702);
+  }
+  
+  /* Hover effect for the cat image and title */
+  .cat-image:hover {
+    transform: scaleX(-1); 
+  }
+  
+  /* When the container is hovered, show the title */
+  .group:hover .booksy-title {
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0ms; /* Make title appear instantly when image flips */
+  }
+  
+  /* Adjust layout when the cat image is hovered */
+  .group:hover + .navbar-link {
+    margin-left: 90px; /* Push the 'About' link further to the right */
+  }
+  
+
+  .rochester-regular {
+    font-family: "Rochester", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .poppins-light {
+    font-family: "Poppins", serif;
+    font-weight: 300;
+    font-style: normal;
+  }
+
+  footer {
+    color: white;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    box-shadow: 4px 4px 10px #011813; 
+  }
+
+
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+  }
+  
+  @keyframes logo-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

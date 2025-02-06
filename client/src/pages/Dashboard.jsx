@@ -60,13 +60,24 @@ export default function Dashboard() {
 
     const updateShelfBooks = async (shelfName) => {
         try {
-            const setShelfFunction = (shelfName === "Currently Reading") ? setCurrentlyReading :
-                                     (shelfName === "Want To Read") ? setWantToRead :
-                                     (shelfName === "Read") ? setRead :
-                                     setCurrentBooksInShelf;
+            if (shelfName !== "all") {
+
+                const setShelfFunction = (shelfName === "Currently Reading") ? setCurrentlyReading :
+                                        (shelfName === "Want To Read") ? setWantToRead :
+                                        (shelfName === "Read") ? setRead :
+                                        setCurrentBooksInShelf;
     
-            const updatedBooks = await fetchBooksByShelf(shelfName, setShelfFunction);
-            console.log(`Books for shelf ${shelfName} updated successfully.`);
+                await fetchBooksByShelf(shelfName, setShelfFunction);
+                console.log(`Books for shelf ${shelfName} updated successfully.`);
+            } else {
+                await Promise.all([
+                    fetchBooksByShelf("Currently Reading", setCurrentlyReading),
+                    fetchBooksByShelf("Want To Read", setWantToRead),
+                    fetchBooksByShelf("Read", setRead),
+                    fetchBooksByShelf(currentBooksInShelf, setCurrentBooksInShelf)
+                ]);
+                console.log("All shelves updated successfully.");
+            }
         } catch (error) {
             console.error(`Error updating books for shelf ${shelfName}:`, error);
         }
@@ -98,7 +109,7 @@ export default function Dashboard() {
     return (
         <div className="bg-greygreen text-textgreen h-screen flex flex-col poppins-light overflow-y-auto">
             <header className="mb-2 shadow w-full py-2 px-6">
-                <DashboardNavBar />
+                <DashboardNavBar update={updateShelfBooks} />
             </header>
             <div className="flex flex-grow">
                 <div className=" w-1/4 p-4 border-r">

@@ -5,7 +5,7 @@ import { toast } from 'react-hot-toast';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
-export default function BookInfo({ book, onClose }) {
+export default function BookInfo({ book, onClose, update }) {
 
   const { user } = useContext(UserContext);
   const userID = user.id
@@ -33,7 +33,7 @@ export default function BookInfo({ book, onClose }) {
           shelfName: selectedShelf, 
         }
       );
-
+      update(selectedShelf)
       toast.success('Added Book!');
       onClose();
 

@@ -5,7 +5,7 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import SearchResults from "./SearchResults";
 import BookInfo from "./BookInfo";  
 
-export default function SearchBooks() {
+export default function SearchBooks({update}) {
   const [query, setQuery] = useState("");
   const [books, setBooks] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -73,7 +73,7 @@ export default function SearchBooks() {
       )}
 
       {selectedBook && (
-        <BookInfo book={selectedBook} onClose={() => setSelectedBook(null)} />
+        <BookInfo book={selectedBook} update={update} onClose={() => setSelectedBook(null)} />
       )}
     </div>
   );

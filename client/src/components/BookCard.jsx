@@ -171,6 +171,7 @@ export default function BookCard({ book, updateBook, updateShelfBooks, shelfname
             <DeleteBook 
                 book={book} 
                 setShowDeleteModal={setShowDeleteModal} 
+                updateShelfBooks={updateShelfBooks}
                 />
             )}
         </div>

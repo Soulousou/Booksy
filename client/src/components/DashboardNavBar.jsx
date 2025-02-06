@@ -6,7 +6,7 @@ import catBooksy from '../assets/cat_booksy.png';
 import SearchBarBooks from './SearchBarBooks';
 
 
-export default function Navbar() {
+export default function Navbar( {update}) {
   
   const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
@@ -42,7 +42,7 @@ export default function Navbar() {
 
         {/* Right Section (Search + Logout) */}
         <div className="flex flex-row space-x-5">
-          <SearchBarBooks />
+          <SearchBarBooks update={update}/>
           <button 
             className='border border-stone rounded-xl p-2 hover:bg-accentgreen/75' 
             onClick={() => setShowModal(true)}

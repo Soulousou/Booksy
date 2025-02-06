@@ -3,7 +3,7 @@ import { toast } from 'react-hot-toast';
 import axios from 'axios';
 import { UserContext } from '../../context/UserContext';
 
-export default function DeleteBook({ book, setShowDeleteModal }) {
+export default function DeleteBook({ book, setShowDeleteModal, updateShelfBooks }) {
 
     const { user } = useContext(UserContext)
 
@@ -11,6 +11,7 @@ export default function DeleteBook({ book, setShowDeleteModal }) {
         try {
             const response = await axios.delete(`/${user.id}/books/${book.id}`);
             if (response.data) {
+                updateShelfBooks("all")
                 toast.success("Book deleted successfully!");
                 setShowDeleteModal(false);  
             } else {

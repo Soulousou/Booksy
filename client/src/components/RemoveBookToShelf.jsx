@@ -5,11 +5,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { toast } from "react-hot-toast";
 
-export default function RemoveBookToShelf({book, updateShelfBooks, shelfname}) {
+export default function RemoveBookToShelf({book, updateShelfBooks}) {
 
     const { user } = useContext(UserContext);
     const [showDropdown, setShowDropdown] = useState(false);
     const [shelves, setShelves] = useState([]);
+    const [selectedShelf, setSelectedShelf] = useState(null);
 
     const fetchShelves = async () => {
         if (user?.id) {
@@ -22,27 +23,27 @@ export default function RemoveBookToShelf({book, updateShelfBooks, shelfname}) {
         }
     };
 
-    const handleRemoveBook = async () => {
-        if (!user || !book) return;
-    
+    const handleRemoveBook = async (shelf) => {  // ✅ Fix: Accept `shelf` as parameter
+        if (!user || !book || !shelf) return;
+        
         try {
-            console.log(shelfname)
+            console.log("Removing from shelf:", shelf.shelfName);
             const response = await axios.delete(`/${user.id}/books/shelves/book/remove`, {
                 data: {
-                    shelfName: shelfname,
+                    shelfName: shelf.shelfName,  // ✅ Fix: Use `shelf.shelfName` instead of `selectedShelf`
                     bookID: book.id,
                 },
             });
-    
+
             if (response.error) {
                 console.log(response.data.message);
                 toast.error(response.data.message);
             } else {
                 console.log("Book removed successfully:", response.data);
-                toast.success(`Book removed successfully from ${shelfname}`);
-    
+                toast.success(`Book removed successfully from ${shelf.shelfName}`);
+
                 if (updateShelfBooks) {
-                    updateShelfBooks(shelfname);
+                    updateShelfBooks(shelf.shelfName);
                 }
             }
         } catch (error) {
@@ -75,7 +76,7 @@ export default function RemoveBookToShelf({book, updateShelfBooks, shelfname}) {
                         <div
                             key={index}
                             onClick={() => {
-                                onSelectShelf(shelf);
+                                handleRemoveBook(shelf);
                                 setShowDropdown(false);
                             }}
                             className={`p-2 cursor-pointer shadow-lg text-center hover:bg-accentgreen/80 ${selectedShelf === shelf ? 'bg-accentgreen text-white' : ''}`}

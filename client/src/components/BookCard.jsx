@@ -5,7 +5,6 @@ import { toast } from 'react-hot-toast';
 import RatingStars from './RatingStars';
 import AddBookToShelf from './AddBookToShelf';
 import RemoveBookToShelf from './RemoveBookToShelf';
-import DeleteBook from './DeleteBook.jsx';
 
 
 export default function BookCard({ book, updateBook, updateShelfBooks, shelfname }) {

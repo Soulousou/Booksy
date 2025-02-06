@@ -69,25 +69,25 @@ export default function RemoveBookToShelf({book, updateShelfBooks, shelfname}) {
             </div>
 
             {showDropdown && (
-                <div className="absolute top-full mt-1 bg-ivory border border-stone rounded-md shadow-md w-full">
-                    {shelves.length > 0 ? (
-                        shelves.map((shelf, index) => (
-                            <div
-                                key={index}
-                                onClick={() => {
-                                    handleRemoveBook(shelf);
-                                    setShowDropdown(false);
-                                }}
-                                className="p-2 cursor-pointer shadow-lg text-center hover:text-ivory"
-                            >
-                                {shelf.shelfName}
-                            </div>
-                        ))
-                    ) : (
-                        <p className="p-2 text-center">No shelves available</p>
-                    )}
-                </div>
-            )}
+            <div className="absolute top-full mt-1 bg-ivory border border-stone rounded-md shadow-md w-full max-h-48 overflow-y-auto z-50">
+                {shelves.length > 0 ? (
+                    shelves.map((shelf, index) => (
+                        <div
+                            key={index}
+                            onClick={() => {
+                                onSelectShelf(shelf);
+                                setShowDropdown(false);
+                            }}
+                            className={`p-2 cursor-pointer shadow-lg text-center hover:bg-accentgreen/80 ${selectedShelf === shelf ? 'bg-accentgreen text-white' : ''}`}
+                        >
+                            {shelf.shelfName}
+                        </div>
+                    ))
+                ) : (
+                    <p className="p-2 text-center">No shelves available</p>
+                )}
+            </div>
+        )}
         </div>
     );
 

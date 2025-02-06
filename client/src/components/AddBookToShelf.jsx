@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { toast } from "react-hot-toast";
 
-export default function AddShelf({ book, updateShelfBooks, shelfname}) {
+export default function AddShelf({ book, updateShelfBooks}) {
 
     const { user } = useContext(UserContext)
     const [showDropdown, setShowDropdown] = useState(false);
@@ -70,25 +70,26 @@ export default function AddShelf({ book, updateShelfBooks, shelfname}) {
 
             {/* Dropdown list (only shown when `showDropdown` is true) */}
             {showDropdown && (
-                <div className="absolute top-full mt-1 bg-ivory border border-stone rounded-md shadow-md w-full">
-                    {shelves.length > 0 ? (
-                        shelves.map((shelf, index) => (
-                            <div
-                                key={index}
-                                onClick={() => {
-                                    onSelectShelf(shelf);
-                                    setShowDropdown(false);
-                                }}
-                                className={`p-2 cursor-pointer shadow-lg text-center hover:bg-accentgreen/80 ${selectedShelf === shelf ? 'bg-accentgreen text-white' : ''}`}
-                            >
-                                {shelf.shelfName}
-                            </div>
-                        ))
-                    ) : (
-                        <p className="p-2  text-center">No shelves available</p>
-                    )}
-                </div>
-            )}
+            <div className="absolute top-full mt-1 bg-ivory border border-stone rounded-md shadow-md w-full max-h-48 overflow-y-auto z-50">
+                {shelves.length > 0 ? (
+                    shelves.map((shelf, index) => (
+                        <div
+                            key={index}
+                            onClick={() => {
+                                onSelectShelf(shelf);
+                                setShowDropdown(false);
+                            }}
+                            className={`p-2 cursor-pointer shadow-lg text-center hover:bg-accentgreen/80 ${selectedShelf === shelf ? 'bg-accentgreen text-white' : ''}`}
+                        >
+                            {shelf.shelfName}
+                        </div>
+                    ))
+                ) : (
+                    <p className="p-2 text-center">No shelves available</p>
+                )}
+            </div>
+        )}
+
         </div>
     )
 }

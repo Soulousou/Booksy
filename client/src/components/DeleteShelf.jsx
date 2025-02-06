@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { toast } from "react-hot-toast";
 
 export default function DeleteShelf({ user, shelves, setShelves, setShowDeletePrompt }) {
     const [selectedShelfToDelete, setSelectedShelfToDelete] = useState(null);
@@ -12,6 +13,7 @@ export default function DeleteShelf({ user, shelves, setShelves, setShowDeletePr
             });
             setShelves(data.shelves);  
             setShowDeletePrompt(false);  
+            toast.success("Shelf deleted!")
         } catch (error) {
             console.error("Error removing shelf:", error);
         }

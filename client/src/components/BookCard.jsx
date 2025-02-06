@@ -80,98 +80,92 @@ export default function BookCard({ book, updateBook, updateShelfBooks, shelfname
 
 
     return (
-        <div className="p-4 bg-ivory rounded-lg shadow-lg hover:shadow-2xl transition duration-300">
-            <div className="flex flex-col md:flex-row items-center md:items-center justify-between">
-                {/* Image and Rating Section */}
-                <div className="flex flex-col items-center md:items-center md:w-1/3 pr-3">
-                    <img
-                        src={image}
-                        alt={title}
-                        className="w-32 h-48 object-cover rounded-lg shadow-md transform hover:scale-105 transition duration-300"
-                    />
-                    <div className="my-5">
-                        <RatingStars currentRating={bookRating} onRatingChange={handleUpdateRating} />
-                    </div>
+        <div className="flex flex-col md:flex-row items-center md:items-center justify-between">
+        {/* Image and Rating Section */}
+        <div className="flex flex-col items-center md:items-center md:w-1/3 pr-3">
+            <img
+                src={image}
+                alt={title}
+                className="w-32 h-48 object-cover rounded-lg shadow-md transform hover:scale-105 transition duration-300"
+            />
+            <div className="my-5">
+                <RatingStars currentRating={bookRating} onRatingChange={handleUpdateRating} />
+            </div>
 
-                    <div className='space-y-4'>
-                        <AddBookToShelf book={book} updateShelfBooks={updateShelfBooks} shelfname={shelfname}/>
-                        <RemoveBookToShelf book={book} updateShelfBooks={updateShelfBooks} shelfname={shelfname} />
-                        <button 
-                            onClick={() => setShowDeleteModal(true)}
-                            className="bg-red/75 text-black px-4 py-2 rounded hover:bg-red/80"
-                        >
-                            Delete Book
-                        </button>
-                    </div>
+            <div className='space-y-4'>
+                <div className="relative">
+                    <AddBookToShelf book={book} updateShelfBooks={updateShelfBooks} />
                 </div>
+                <div className="relative">
+                    <RemoveBookToShelf book={book} updateShelfBooks={updateShelfBooks} shelfname={shelfname} />
+                </div>
+                <button 
+                    onClick={() => setShowDeleteModal(true)}
+                    className="bg-red/75 text-black px-4 py-2 rounded hover:bg-red/80"
+                >
+                    Delete Book
+                </button>
+            </div>
+        </div>
 
-                {/* Book Details Section */}
-                <div className="flex flex-col md:w-2/3 md:pl-4 text-center md:text-left">
-                    <h3 className="text-2xl font-semibold">{title}</h3>
-                    <p className="text-lg">{authors}</p>
+        {/* Book Details Section */}
+        <div className="flex flex-col md:w-2/3 md:pl-4 text-center md:text-left">
+            <h3 className="text-2xl font-semibold">{title}</h3>
+            <p className="text-lg">{authors}</p>
 
-                    {/* Centered Description and Progress Update */}
-                    <div className="mt-4 flex flex-col items-center space-x-2 justify-center">
-                        <p className="text-md text-textgreen text-justify">{description}</p>
-                        <h1 
-                            onClick={toggleUpdateSection} 
-                            className="mt-4 text-lg font-semibold text-accentgreen cursor-pointer hover:text-accentgreen/80"
-                        >
-                            Update your progress!
-                        </h1>
+            {/* Centered Description and Progress Update */}
+            <div className="mt-4 flex flex-col items-center space-x-2 justify-center">
+                <p className="text-md text-textgreen text-justify">{description}</p>
+                <h1 
+                    onClick={toggleUpdateSection} 
+                    className="mt-4 text-lg font-semibold text-accentgreen cursor-pointer hover:text-accentgreen/80"
+                >
+                    Update your progress!
+                </h1>
 
-                        {/* Update Section */}
-                        {showUpdate && (
-                            <div className='mt-4 flex flex-col items-center space-y-4'>
-                                <div className='flex space-x-4 justify-center'>
-                                    <button 
-                                        onClick={() => setInputMode('page')} 
-                                        className="px-4 py-2 rounded border border-accentgreen hover:bg-accentgreen/80"
-                                    >
-                                        Enter a page number
-                                    </button>
-                                    <button 
-                                        onClick={() => setInputMode('percentage')} 
-                                        className="px-4 py-2 rounded border border-accentgreen hover:bg-accentgreen/80"
-                                    >
-                                        Enter a %
-                                    </button>
+                {/* Conditionally Render the Update Section */}
+                {showUpdate && (
+                    <div className='mt-4 flex flex-col items-center space-y-4'>
+                        <div className='flex space-x-4 justify-center'>
+                            <button 
+                                onClick={() => setInputMode('page')} 
+                                className="px-4 py-2 rounded border border-accentgreen hover:bg-accentgreen/80"
+                            >
+                                Enter a page number
+                            </button>
+                            <button 
+                                onClick={() => setInputMode('percentage')} 
+                                className="px-4 py-2 rounded border border-accentgreen hover:bg-accentgreen/80"
+                            >
+                                Enter a %
+                            </button>
+                        </div>
+
+                        {/* Render Input for Page/Percentage */}
+                        {inputMode && (
+                            <div className="mt-5 flex flex-col items-center space-y-4">
+                                <div className="flex items-center justify-center space-x-2 mb-2.5">
+                                    <input
+                                        type="text"
+                                        value={inputValue}
+                                        onChange={handlePageChange}
+                                        className="border rounded p-2 w-[60%]"
+                                        placeholder={inputMode === 'page' ? "Enter page" : "Enter %"}
+                                    />
+                                    <p>{inputMode === "page" ? `${currentPage}/${pageCount}` : `${Math.ceil((currentPage / pageCount) * 100)}%`}</p>
                                 </div>
-
-                                {/* Render Input for Page/Percentage */}
-                                {inputMode && (
-                                    <div className="mt-5 flex flex-col items-center space-y-4">
-                                        <div className="flex items-center justify-center space-x-2 mb-2.5">
-                                            <input
-                                                type="text"
-                                                value={inputValue}
-                                                onChange={handlePageChange}
-                                                className="border rounded p-2 w-[60%]"
-                                                placeholder={inputMode === 'page' ? "Enter page" : "Enter %"}
-                                            />
-                                            <p>{inputMode === "page" ? `${currentPage}/${pageCount}` : `${Math.ceil((currentPage / pageCount) * 100)}%`}</p>
-                                        </div>
-                                        <button
-                                            onClick={handleUpdateProgress}
-                                            className="bg-accentgreen/80 text-ivory rounded hover:bg-accentgreen p-2"
-                                        >
-                                            Update Progress
-                                        </button>
-                                    </div>
-                                )}
+                                <button
+                                    onClick={handleUpdateProgress}
+                                    className="bg-accentgreen/80 text-ivory rounded hover:bg-accentgreen p-2"
+                                >
+                                    Update Progress
+                                </button>
                             </div>
                         )}
                     </div>
-                </div>
+                )}
             </div>
-
-            {/* DeleteBook modal */}
-            {showDeleteModal && (
-                <DeleteBook
-                    book={book}
-                    setShowDeleteModal={setShowDeleteModal}  
-                />
-            )}
         </div>
+    </div>
     );
 }

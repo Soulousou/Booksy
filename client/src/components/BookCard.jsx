@@ -5,6 +5,7 @@ import { toast } from 'react-hot-toast';
 import RatingStars from './RatingStars';
 import AddBookToShelf from './AddBookToShelf';
 import RemoveBookToShelf from './RemoveBookToShelf';
+import DeleteBook from './DeleteBook';
 
 
 export default function BookCard({ book, updateBook, updateShelfBooks, shelfname }) {
@@ -165,6 +166,15 @@ export default function BookCard({ book, updateBook, updateShelfBooks, shelfname
                 )}
             </div>
         </div>
+        <div>
+        {showDeleteModal && (
+            <DeleteBook 
+                book={book} 
+                setShowDeleteModal={setShowDeleteModal} 
+                />
+            )}
+        </div>
+
     </div>
     );
 }

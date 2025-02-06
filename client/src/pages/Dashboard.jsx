@@ -146,7 +146,7 @@ export default function Dashboard() {
 
                 <div className="w-3/4 p-6">
                     <h1 className="text-2xl font-bold">Dashboard</h1>
-                    <h2>Hi {user ? user.username : "Guest"} {user ? user.id : ""}</h2>
+                    <h2>Hi {user ? user.username : "Guest"} </h2>
 
                     {selectedShelf === "Default" ? (
                         <>
